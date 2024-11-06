@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Add this right after opening <body> tag -->
+        <div class="parallax-container">
+            <div class="parallax-layer" data-speed="0.2">
+                <img src="channel.png" alt="Background Layer">
+            </div>
+            <div class="parallax-layer" data-speed="0.4">
+                <img src="main.png" alt="Middle Layer">
+            </div>
+            <div class="parallax-layer" data-speed="0.6">
+                <img src="sidebar.png" alt="Foreground Layer">
+            </div>
+        </div>
+    
+        <!-- Add this to your existing <style> section -->
+        <style>
+        .parallax-container {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            perspective: 1000px;
+            z-index: -1;
+        }
+    
+        .parallax-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+        }
+    
+        .parallax-layer img {
+            position: absolute;
+            width: 110%;
+            height: 110%;
+            object-fit: cover;
+            left: -5%;
+            top: -5%;
+        }
+        </style>
+    <!-- External CSS -->
+    </style>
+        @import url('style.css');
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Talking_cat - A powerful Discord bot for community management with advanced moderation, tickets, and verification features">
+    <meta name="keywords" content="Discord bot, moderation, tickets, verification, community management">
+    <title>Talking_cat - Advanced Discord Bot for Community Management</title>
+    
+    <!-- External CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Animation Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="talking_cat.jpg" alt="Talking_cat Logo" height="40" class="me-2">
+                <span class="brand-text">Talking_cat</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-bars me-1"></i>More
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#features">Features</a></li>
+                            <li><a class="dropdown-item" href="#commands">Commands</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#docs">Documentation</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features"><i class="fas fa-star me-1"></i>Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#commands"><i class="fas fa-terminal me-1"></i>Commands</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#docs"><i class="fas fa-book me-1"></i>Documentation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#community"><i class="fas fa-users me-1"></i>Community</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#status"><i class="fas fa-signal me-1"></i>Status</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#demo"><i class="fas fa-play-circle me-1"></i>Demo</a>
+                    </li>
+                </ul>
+                <div class="nav-buttons d-flex gap-2">
+                    <a href="https://discord.com/oauth2/authorize?client_id=1270270867208667140&permissions=8&response_type=code&redirect_uri=https%3A%2F%2Fwebsite-lime-omega-48.vercel.app%2Fdiscord%2Fcallback&integration_type=0&scope=identify+guilds+email+guilds.join+bot" class="btn btn-outline-primary">Sign In</a>
+                    <a href="https://discord.com/oauth2/authorize?client_id=1270270867208667140&permissions=8&response_type=code&redirect_uri=https%3A%2F%2Fwebsite-lime-omega-48.vercel.app%2Fdiscord%2Fcallback&integration_type=0&scope=identify+guilds+email+guilds.join+bot" class="btn btn-primary">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero min-vh-100 d-flex align-items-center">
+        <div class="  text-center">
+            <h1 class="display-4 fw-bold mb-4">
+                Empower Your Discord Community with<br>
+                <span class="highlight">Intelligent Moderation</span>
+            </h1>
+            <p class="lead mb-5">
+                Trusted by over 3 million Discord servers, Talking_cat provides enterprise-grade 
+                moderation tools,  seamless ticket management, robust verification systems. 
+            </br><span style="color: #FF6B6B;">Set up in minutes</span>, <span style="color: #4ECDC4;">scale infinitely</span>.
+            </p>
+            <div class="cta-group">
+                <a href="https://discord.com/oauth2/authorize?client_id=1270270867208667140&permissions=8&response_type=code&redirect_uri=https%3A%2F%2Fwebsite-lime-omega-48.vercel.app%2Fdiscord%2Fcallback&integration_type=0&scope=identify+guilds+email+guilds.join+bot" class="btn btn-primary">
+                    <i class="fab fa-discord me-2"></i>Add to Discord
+                </a>
+                <a href="#features" class="btn btn-lg btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#demoModal">
+                    <i class="fas fa-play me-2"></i>Watch Demo
+                </a>
+            </div>
+            <div class="mt-4 text-muted Autoshow">
+                <small>No credit card required • Free tier available</small>
+            </div>
+        </div>
+    </header>
+
+    <!-- Features Section -->
+    <section class="features-section py-5">
+        
+        <div class="container">
+            <div class="Autoshow">
+                <div class="text-center mb-5">
+                    <h2 class="display-5 fw-bold">Features</h2>
+                <p class="lead text-muted">Everything you need to manage your Discord server</p>
+                </div>
+            </div>
+            <div class="Autoshow">
+                <div class="row g-4">
+                    <!-- Moderation Card -->
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Smart Moderation</h3>
+                        <p>Advanced auto-moderation with AI-powered content filtering and customizable rules.</p>
+                        <a href="#" class="learn-more">Learn more <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Ticket System Card -->
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-ticket-alt"></i>
+                        </div>
+                        <h3>Ticket System</h3>
+                        <p>Streamlined support ticket management with custom categories and auto-assignment.</p>
+                        <a href="#" class="learn-more">Learn more <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Verification Card -->
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <h3>Verification System</h3>
+                        <p>Robust member verification with customizable requirements and anti-raid protection.</p>
+                        <a href="#" class="learn-more">Learn more <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Auto-Moderation Card -->
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h3>Auto-Moderation</h3>
+                        <p>24/7 automated moderation with customizable filters and intelligent spam detection.</p>
+                        <a href="#" class="learn-more">Learn more <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Logging System Card -->
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-history"></i>
+                        </div>
+                        <h3>Advanced Logging</h3>
+                        <p>Comprehensive logging system for all server activities and moderation actions.</p>
+                        <a href="#" class="learn-more">Learn more <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Welcome System Card -->
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-door-open"></i>
+                        </div>
+                        <h3>Welcome System</h3>
+                        <p>Customizable welcome messages and automatic role assignment for new members.</p>
+                        <a href="#" class="learn-more">Learn more <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section id="demo" class="demo-section py-5">
+        <div class="container">
+            <!-- Section Header -->
+            <div class="text-center mb-5">
+                <div class="Autoshow">
+                    <h2 class="display-5 fw-bold">See It In Action</h2>
+                    <p class="lead text-muted">Watch how Talking_cat transforms your Discord server</p>
+                </div>
+            </div>
+
+            <!-- Demo Content -->
+            <div class="row align-items-center g-5">
+                <!-- Demo Video Column -->
+                <div class="col-lg-6">
+                    <div class="demo-video-wrapper Autoshow">
+                        <div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-lg">
+                            <iframe 
+                                src="https://shattereddisk.github.io/rickroll/rickroll.mp4"
+                                title="Demo Video"
+                                frameborder="1"
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Demo Features Column -->
+                <div class="col-lg-6">
+                    <div class="demo-features Autoshow">
+                        <div class="demo-feature mb-4">
+                            <div class="d-flex align-items-center">
+                                <div class="demo-icon">
+                                    <i class="fas fa-rocket"></i>
+                                </div>
+                                <div class="ms-3">
+                                    <h4>Quick Setup</h4>
+                                    <p class="mb-0">Get started in less than 2 minutes with our intuitive setup wizard</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="demo-feature mb-4">
+                            <div class="d-flex align-items-center">
+                                <div class="demo-icon">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <div class="ms-3">
+                                    <h4>Advanced Protection</h4>
+                                    <p class="mb-0">See our AI-powered moderation system in action</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="demo-feature mb-4">
+                            <div class="d-flex align-items-center">
+                                <div class="demo-icon">
+                                    <i class="fas fa-ticket-alt"></i>
+                                </div>
+                                <div class="ms-3">
+                                    <h4>Ticket Management</h4>
+                                    <p class="mb-0">Experience our streamlined support ticket system</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-center text-lg-start mt-5">
+                            <a href="#" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#demoModal">
+                                <i class="fas fa-play me-2"></i>Watch Full Demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Container Slider Section -->
+    <section class="container-slider-section py-5">
+        <div class="container">
+            <!-- Add section header with Autoshow -->
+            <div class="text-center mb-5 Autoshow">
+                <h2 class="display-5 fw-bold">Featured Content</h2>
+                <p class="lead text-muted">Explore our amazing features</p>
+            </div>
+            
+            <div class="slider-wrapper">
+                <div class="slider-track">
+                    <div class="slide">
+                        <div class="content-box">
+                            <img src="image1.jpg" alt="Feature 1">
+                            <h3>Feature 1</h3>
+                            <p>Description of feature 1</p>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <div class="content-box">
+                            <img src="image2.jpg" alt="Feature 2">
+                            <h3>Feature 2</h3>
+                            <p>Description of feature 2</p>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <div class="content-box">
+                            <img src="image3.jpg" alt="Feature 3">
+                            <h3>Feature 3</h3>
+                            <p>Description of feature 3</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Navigation Buttons -->
+                <button class="slider-nav prev" onclick="moveSlider(-1)">❮</button>
+                <button class="slider-nav next" onclick="moveSlider(1)">❯</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Account System Section -->
+    <section class="account-section py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5 Autoshow">
+                <h2 class="display-5 fw-bold">Account Management</h2>
+                <p class="lead text-muted">Seamlessly manage your Discord integration</p>
+            </div>
+            
+            <div class="row g-4 align-items-center">
+                <div class="col-lg-6 Autoshow">
+                    <div class="account-features">
+                        <div class="feature-item mb-4">
+                            <div class="d-flex align-items-center">
+                                <div class="icon-wrapper">
+                                    <i class="fas fa-user-shield"></i>
+                                </div>
+                                <div class="ms-3">
+                                    <h4>Secure Authentication</h4>
+                                    <p class="mb-0">Safe and secure Discord OAuth2 integration</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item mb-4">
+                            <div class="d-flex align-items-center">
+                                <div class="icon-wrapper">
+                                    <i class="fas fa-server"></i>
+                                </div>
+                                <div class="ms-3">
+                                    <h4>Server Management</h4>
+                                    <p class="mb-0">Manage all your Discord servers from one dashboard</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="d-flex align-items-center">
+                                <div class="icon-wrapper">
+                                    <i class="fas fa-cog"></i>
+                                </div>
+                                <div class="ms-3">
+                                    <h4>Customizable Settings</h4>
+                                    <p class="mb-0">Personalize your bot configuration for each server</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 Autoshow">
+                    <div class="account-preview p-4 rounded-4 shadow-lg">
+                        <div class="dashboard-preview bg-white p-4 rounded-3">
+                            <div class="d-flex align-items-center mb-4">
+                                <img src="talking_cat.jpg" alt="User Avatar" class="rounded-circle" style="width: 50px; height: 50px;">
+                                <div class="ms-3">
+                                    <h5 class="mb-0">Dashboard Preview</h5>
+                                    <small class="text-muted">Manage your servers</small>
+                                </div>
+                            </div>
+                            <div class="server-list">
+                                <!-- Add mock server entries here -->
+                                <div class="server-item p-3 mb-2 rounded-3 bg-light">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span>Gaming Community</span>
+                                        <button class="btn btn-sm btn-primary">Manage</button>
+                                    </div>
+                                </div>
+                                <div class="server-item p-3 rounded-3 bg-light">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span>Support Server</span>
+                                        <button class="btn btn-sm btn-primary">Manage</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+
+    <!-- Video Modal -->
+    <div class="modal fade" id="demoModal" tabindex="-1" aria-labelledby="demoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="demoModalLabel">Talking_cat Demo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <div class="ratio ratio-16x9">
+                        <iframe 
+                            src="https://shattereddisk.github.io/rickroll/rickroll.mp4"
+                            title="Demo Video"
+                            frameborder="1"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add this right after <body> -->
+    <div id="particles-js" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></div>
+
+    <!-- Add before closing </body> -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS('particles-js', {
+            particles: {
+                number: {
+                    value: 80,
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
+                color: {
+                    value: ['#6e8efb', '#a777e3']
+                },
+                shape: {
+                    type: 'circle'
+                },
+                opacity: {
+                    value: 0.5,
+                    random: true,
+                    animation: {
+                        enable: true,
+                        speed: 1,
+                        opacity_min: 0.1,
+                        sync: false
+                    }
+                },
+                size: {
+                    value: 3,
+                    random: true,
+                    animation: {
+                        enable: true,
+                        speed: 2,
+                        size_min: 0.1,
+                        sync: false
+                    }
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#a777e3',
+                    opacity: 0.2,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: true,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false,
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: 'grab'
+                    },
+                    onclick: {
+                        enable: true,
+                        mode: 'push'
+                    },
+                    resize: true
+                },
+                modes: {
+                    grab: {
+                        distance: 140,
+                        line_linked: {
+                            opacity: 0.5
+                        }
+                    },
+                    push: {
+                        particles_nb: 4
+                    }
+                }
+            },
+            retina_detect: true
+        });
+    </script>
+
+    <!-- Add this section after your features section -->
+
+    <!-- Account Section -->
+    <section class="account-section py-5" id="account">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="login-container">
+                        <h2 class="text-center text-white mb-4">Account Access</h2>
+                        
+                        <!-- Login Form -->
+                        <div class="login-form">
+                            <form id="loginForm" onsubmit="handleLogin(event)">
+                                <div class="mb-3">
+                                    <input type="text" 
+                                           class="form-control" 
+                                           id="username" 
+                                           placeholder="Username"
+                                           required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <input type="password" 
+                                           class="form-control" 
+                                           id="password" 
+                                           placeholder="Password"
+                                           required>
+                                </div>
+
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" id="rememberMe">
+                                    <label class="form-check-label text-white" for="rememberMe">Remember me</label>
+                                </div>
+
+                                <button type="submit" class="btn btn-login w-100">Login</button>
+
+                                <div class="links mt-3">
+                                    <a href="#" onclick="showForgotPassword()">Forgot Password?</a>
+                                    <span class="mx-2 text-white">|</span>
+                                    <a href="#" onclick="showRegister()">Create Account</a>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Register Form (Initially Hidden) -->
+                        <div class="register-form" style="display: none;">
+                            <form id="registerForm" onsubmit="handleRegister(event)">
+                                <div class="mb-3">
+                                    <input type="text" 
+                                           class="form-control" 
+                                           id="regUsername" 
+                                           placeholder="Username"
+                                           required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <input type="email" 
+                                           class="form-control" 
+                                           id="regEmail" 
+                                           placeholder="Email"
+                                           required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <input type="password" 
+                                           class="form-control" 
+                                           id="regPassword" 
+                                           placeholder="Password"
+                                           required>
+                                </div>
+
+                                <button type="submit" class="btn btn-login w-100">Register</button>
+
+                                <div class="links mt-3">
+                                    <a href="#" onclick="showLogin()">Already have an account? Login</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Add these styles to your existing CSS -->
+    <style>
+    .account-section {
+        background: linear-gradient(135deg, #6e8efb, #a777e3);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+    }
+
+    .login-container {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .form-control {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+        color: white;
+        padding: 12px;
+    }
+
+    .form-control:focus {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: rgba(255, 255, 255, 0.3);
+        box-shadow: none;
+        color: white;
+    }
+
+    .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .btn-login {
+        background: white;
+        color: #a777e3;
+        border-radius: 10px;
+        padding: 12px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-login:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .links a {
+        color: white;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .links a:hover {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+
+    .form-check-label {
+        color: white;
+    }
+    </style>
+
+    <!-- Add this JavaScript to your existing scripts -->
+    <script>
+    function showLogin() {
+        document.querySelector('.login-form').style.display = 'block';
+        document.querySelector('.register-form').style.display = 'none';
+    }
+
+    function showRegister() {
+        document.querySelector('.login-form').style.display = 'none';
+        document.querySelector('.register-form').style.display = 'block';
+    }
+
+    function showForgotPassword() {
+        // Implement forgot password functionality
+        alert('Forgot password functionality coming soon!');
+    }
+
+    async function handleLogin(event) {
+        event.preventDefault();
+        
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        
+        try {
+            const response = await fetch('/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            });
+
+            const data = await response.json();
+            
+            if (response.ok) {
+                // Login successful
+                window.location.href = '/dashboard';
+            } else {
+                // Login failed
+                alert(data.message || 'Login failed');
+            }
+        } catch (error) {
+            console.error('Login error:', error);
+            alert('An error occurred during login');
+        }
+    }
+
+    async function handleRegister(event) {
+        event.preventDefault();
+        
+        const username = document.getElementById('regUsername').value;
+        const email = document.getElementById('regEmail').value;
+        const password = document.getElementById('regPassword').value;
+        
+        try {
+            const response = await fetch('/api/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, email, password }),
+            });
+
+            const data = await response.json();
+            
+            if (response.ok) {
+                // Registration successful
+                alert('Registration successful! Please login.');
+                showLogin();
+            } else {
+                // Registration failed
+                alert(data.message || 'Registration failed');
+            }
+        } catch (error) {
+            console.error('Registration error:', error);
+            alert('An error occurred during registration');
+        }
+    }
+    </script>
+
+    <!-- Add this right after opening <body> tag -->
+    <div class="parallax-container">
+        <div class="parallax-layer" data-speed="0.2">
+            <img src="channel.png" alt="Background Layer">
+        </div>
+        <div class="parallax-layer" data-speed="0.4">
+            <img src="main.png" alt="Middle Layer">
+        </div>
+        <div class="parallax-layer" data-speed="0.6">
+            <img src="sidebar.png" alt="Foreground Layer">
+        </div>
+    </div>
+
+    <!-- Add this to your existing <style> section -->
+    <style>
+    .parallax-container {
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+        perspective: 1000px;
+        z-index: -1;
+    }
+
+    .parallax-layer {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        transform-style: preserve-3d;
+    }
+
+    .parallax-layer img {
+        position: absolute;
+        width: 110%;
+        height: 110%;
+        object-fit: cover;
+        left: -5%;
+        top: -5%;
+    }
+    </style>
+
+    <!-- Add this JavaScript before closing </body> tag -->
+    <script>
+    document.addEventListener('mousemove', (e) => {
+        const layers = document.querySelectorAll('.parallax-layer');
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
+        const mouseX = e.clientX - centerX;
+        const mouseY = e.clientY - centerY;
+
+        layers.forEach(layer => {
+            const speed = layer.getAttribute('data-speed');
+            const x = (mouseX * speed) / 100;
+            const y = (mouseY * speed) / 100;
+            layer.style.transform = `translateX(${x}px) translateY(${y}px) translateZ(0)`;
+        });
+    });
+
+    // Optional: Add smooth scrolling parallax
+    window.addEventListener('scroll', () => {
+        const layers = document.querySelectorAll('.parallax-layer');
+        const scrolled = window.pageYOffset;
+
+        layers.forEach(layer => {
+            const speed = layer.getAttribute('data-speed');
+            const yOffset = -(scrolled * speed);
+            layer.style.transform += ` translateY(${yOffset}px)`;
+        });
+    });
+    </script>
+</body>
+</html>
